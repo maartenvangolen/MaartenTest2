@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-// Test branch fixCaps
+
 @SuppressWarnings("serial")
 public class MyFrame extends JFrame implements ActionListener {
 

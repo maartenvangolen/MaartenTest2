@@ -2,6 +2,7 @@ import java.io.File;
 
 public class Main {
 	// TEST
+	// TEST2
 	public static void main(String[] arg) throws Exception {
 		String path = System.getProperty("user.home") + "/Desktop/raddestijds/";
 		path = path.replaceAll("\\\\", "/");

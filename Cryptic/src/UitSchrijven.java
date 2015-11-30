@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class UitSchrijven {
 
-	private String temp = "", input = "", output = "", key = "amsterdam", path = "";
+	private String temp = "", input = "", key = "amsterdam", path = "";
 	private ArrayList<String> s = new ArrayList<String>();
 	private ArrayList<String> sTemp = new ArrayList<String>();
 	private ArrayList<String> rij1;
@@ -18,9 +18,8 @@ public class UitSchrijven {
 		this.path = path;
 	}
 
-	public void setFiles(String inputs, String outputs) {
+	public void setFiles(String inputs) {
 		input = inputs;
-		output = outputs;
 	}
 
 	public void setArray(String in) {
@@ -30,8 +29,8 @@ public class UitSchrijven {
 	private int randomGetal(int i) {
 		return 1 + (int) (i * Math.random());
 	}
-	
-	private ArrayList<String> getAlphabet(){
+
+	private ArrayList<String> getAlphabet() {
 		ArrayList<String> rij1 = new ArrayList<String>();
 		String[] temp = "! a b c d e f g h i j k l m n o p q r s t u v w x y z".split("\\s+");
 		for (int i = 0; i <= 26; i++) {
@@ -42,41 +41,13 @@ public class UitSchrijven {
 
 	@SuppressWarnings("resource")
 	public void coderen(boolean visualsOn) throws IOException {
-		FileReader f1 = new FileReader(path + "data.txt");
-		Scanner s1 = new Scanner(input);
-		s1.useDelimiter("\\s");
-		ArrayList<String> sCheck = new ArrayList<String>();
-		int i = 0, y = 0;
 		String temps = "", in = "";
-		while (s1.hasNext()) {
-			// maakt de input zin aan per woord
-			temps = s1.next();
-			in = temps;
-			sCheck.add(temps);
-			if (visualsOn) {
-				System.out.println("*you speak upon the rabbits:" + temps + "*");
-			}
-		}
-		s1.close();
+		int i = 0, y = 0;
+		FileReader f1 = new FileReader(path + "data.txt");
 
-//		s1 = new Scanner(f1);
-//		s1.useDelimiter("\r\n");
-//		sTemp.clear();
-//		// maakt de sleutel aan per regel
-//		// sTemp bestaat uit één woord + heel veel losse getallen:hoi 334 346 12
-//		while (s1.hasNext()) {
-//
-//			temp = s1.next();
-//			temps = temp.replaceAll("[0-9]", "").replace(" ", "");
-//			s.add(temp);
-//			sTemp.add(temps);
-//			if (visualsOn) {
-//				System.out.println("*you feed your hamsters:" + temps + "*");
-//			}
-//
-//		}
-		
-		createKey(f1 , visualsOn);
+		ArrayList<String> sCheck = createInput(visualsOn);
+
+		createKey(f1, visualsOn);
 
 		while (sCheck.size() > i) {
 			if (visualsOn) {
@@ -177,48 +148,16 @@ public class UitSchrijven {
 		}
 
 		f1.close();
-		s1.close();
 	}
 
 	@SuppressWarnings("resource")
 	public void translate(boolean visualsOn) throws IOException {
 		FileReader f1 = new FileReader(path + "data.txt");
-		Scanner s1 = new Scanner(input);
-		s1.useDelimiter("\\s");
-		ArrayList<String> sCheck = new ArrayList<String>();
 		int i = 0;
-		String temps = "";
-		while (s1.hasNext()) {
-			// maakt de input zin aan per woord
-			temps = s1.next();
-			sCheck.add(temps);
-			if (visualsOn) {
-				System.out.println("*the mice recall :" + temps + "*");
-			}
-		}
-		s1.close();
+		ArrayList<String> sCheck = createInput(visualsOn);
 
-//		s1 = new Scanner(f1);
-//		s1.useDelimiter("\r\n");
-//		sTemp.clear();
-//		s.clear();
-//		// maakt de sleutel aan per regel
-//		// sTemp bestaat uit één woord + heel veel losse getallen:hoi 334 346 12
-//		while (s1.hasNext()) {
-//
-//			temp = s1.next();
-//			temps = temp.replaceAll("[0-9]", "").replace(" ", "");
-//			s.add(temp);
-//			sTemp.add(temps);
-//			if (visualsOn) {
-//				System.out.println("*your mice are named: " + temps + "*");
-//			}
-//
-//		}
+		createKey(f1, visualsOn);
 
-		createKey(f1 , visualsOn);
-		
-		
 		while (sCheck.size() > i) {
 			if (visualsOn) {
 				System.out.println("\n*you repeat the mice: " + sCheck.get(i) + "*");
@@ -353,10 +292,9 @@ public class UitSchrijven {
 		}
 
 		f1.close();
-		s1.close();
 	}
-	
-	private void createKey(FileReader f1 , boolean visualsOn){
+
+	private void createKey(FileReader f1, boolean visualsOn) {
 		String temps;
 		Scanner s1 = new Scanner(f1);
 		s1.useDelimiter("\r\n");
@@ -375,6 +313,25 @@ public class UitSchrijven {
 			}
 
 		}
+	}
+
+	private ArrayList<String> createInput(boolean visualsOn) {
+		ArrayList<String> sCheck = new ArrayList<String>();
+		Scanner s1 = new Scanner(input);
+		s1.useDelimiter("\\s");
+		String temps, in;
+
+		while (s1.hasNext()) {
+			// maakt de input zin aan per woord
+			temps = s1.next();
+			in = temps;
+			sCheck.add(temps);
+			if (visualsOn) {
+				System.out.println("*The input sentence is:" + temps + "*");
+			}
+		}
+		s1.close();
+		return sCheck;
 	}
 
 	public void setMyFrame(MyFrame my) {

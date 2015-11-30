@@ -18,7 +18,6 @@ public class MyFrame extends JFrame implements ActionListener {
 	private JTextField tfIn, tfOut;
 	private JLabel visual, secretLabel;
 	private ArrayList<String> input = new ArrayList<String>();
-	private String output = "";
 
 	public MyFrame() {
 		setLayout(new FlowLayout());
@@ -60,7 +59,7 @@ public class MyFrame extends JFrame implements ActionListener {
 		boolean active = visuals.getText().equals("off-[ON]");
 		boolean isHidden = secretButton.getText().equals("[OFF]-on");
 		if (event.getSource() == bijwerken) {
-			iL.bijwerken(input, output, active);
+			iL.bijwerken(input, active);
 			if (active) {
 				System.out.println("\nXXXXXXXXXXXXXXXFINISHEDXXXXXXXXXXXXXX");
 			} else {
@@ -69,7 +68,7 @@ public class MyFrame extends JFrame implements ActionListener {
 		}
 
 		if (event.getSource() == coderen && !isHidden) {
-			uS.setFiles(tfIn.getText(), output);
+			uS.setFiles(tfIn.getText());
 			try {
 				tfOut.setText("");
 				if (active) {
@@ -85,7 +84,7 @@ public class MyFrame extends JFrame implements ActionListener {
 		}
 
 		if (event.getSource() == coderen && isHidden) {
-			uS.setFiles(tfIn.getText(), output);
+			uS.setFiles(tfIn.getText());
 			try {
 				tfOut.setText("");
 				if (active) {
@@ -134,14 +133,8 @@ public class MyFrame extends JFrame implements ActionListener {
 		uS = ui;
 	}
 
-	public void setFiles(String inputs, String outputs) {
+	public void setFiles(String inputs) {
 		input.add(inputs);
-		output = outputs;
-		tfOut.setText(output);
-	}
-
-	public String getOutput() {
-		return output;
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InLezen {
-	private String input = "", output = "", path = "";
+	private String input = "", path = "";
 	private int wordCounter = 0;
 	private ArrayList<String> aanwezigeWoorden = new ArrayList<String>();
 	private ArrayList<String> sTemp = new ArrayList<String>();
@@ -22,10 +22,10 @@ public class InLezen {
 		this.path = path;
 	}
 
-	public void bijwerken(ArrayList<String> input, String output, boolean isVisual) {
+	public void bijwerken(ArrayList<String> input, boolean isVisual) {
 		wipe();
 		for (String s : input) {
-			setFiles(s, output);
+			setFiles(s);
 			try {
 				textImport();
 			} catch (IOException e) {
@@ -35,9 +35,8 @@ public class InLezen {
 		}
 	}
 
-	public void setFiles(String inputs, String outputs) {
+	public void setFiles(String inputs) {
 		input = inputs;
-		output = outputs;
 	}
 
 	public boolean woordAanwezig(String woord) throws IOException {
@@ -57,7 +56,7 @@ public class InLezen {
 	}
 
 	public void wipe() {
-		System.out.println("["+path + "data.txt"+"]");
+		System.out.println("[" + path + "data.txt" + "]");
 		Writer wr = new Writer(path + "tempo.txt");
 		wr.bufferedWriter("");
 		wr = new Writer(path + "data.txt");
@@ -81,8 +80,9 @@ public class InLezen {
 	}
 
 	public void loop(boolean visualsOn) {
-		Writer wr = new Writer(path + "data.txt", true);
+		Writer wr = new Writer(path + "data.txt");
 		wr.bufferedWriter("");
+		wr = new Writer(path + "data.txt", true);
 		for (String gek : sTemp) {
 			wr.bufferedWriter(gek + System.getProperty("line.separator"));
 			if (visualsOn) {

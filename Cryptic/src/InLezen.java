@@ -57,6 +57,7 @@ public class InLezen {
 	}
 
 	public void wipe() {
+		System.out.println("["+output+"]");
 		Writer wr = new Writer(path + "data.txt");
 		wr.bufferedWriter("");
 		wr = new Writer(output);

@@ -57,7 +57,7 @@ public class InLezen {
 	}
 
 	public void wipe() {
-		Writer wr = new Writer(output.replace("data", "tempo"));
+		Writer wr = new Writer(path + "data.txt");
 		wr.bufferedWriter("");
 		wr = new Writer(output);
 		wr.bufferedWriter("");
@@ -80,7 +80,7 @@ public class InLezen {
 	}
 
 	public void loop(boolean visualsOn) {
-		Writer wr = new Writer(output.replace("data", "tempo"), true);
+		Writer wr = new Writer(path + "data.txt", true);
 		wr.bufferedWriter("");
 		for (String gek : sTemp) {
 			wr.bufferedWriter(gek + System.getProperty("line.separator"));

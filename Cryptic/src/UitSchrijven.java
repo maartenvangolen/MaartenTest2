@@ -42,7 +42,7 @@ public class UitSchrijven {
 
 	@SuppressWarnings("resource")
 	public void coderen(boolean visualsOn) throws IOException {
-		FileReader f1 = new FileReader(output.replaceAll("data", "tempo"));
+		FileReader f1 = new FileReader(path + "data.txt");
 		Scanner s1 = new Scanner(input);
 		s1.useDelimiter("\\s");
 		ArrayList<String> sCheck = new ArrayList<String>();
@@ -182,7 +182,7 @@ public class UitSchrijven {
 
 	@SuppressWarnings("resource")
 	public void translate(boolean visualsOn) throws IOException {
-		FileReader f1 = new FileReader(output.replaceAll("data", "tempo"));
+		FileReader f1 = new FileReader(path + "data.txt");
 		Scanner s1 = new Scanner(input);
 		s1.useDelimiter("\\s");
 		ArrayList<String> sCheck = new ArrayList<String>();

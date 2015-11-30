@@ -16,7 +16,7 @@ public class InLezen {
 	public InLezen(String path) {
 		Reader r = new Reader(path + "schoneBestanden.obj");
 
-		if (r.exists()){
+		if (r.exists()) {
 			bestandSchoon = (ArrayList<String>) r.readObject();
 		}
 		this.path = path;
@@ -139,7 +139,6 @@ public class InLezen {
 
 				writer = new Writer(path + "schoneBestanden.obj");
 				writer.objectOutputStream(bestandSchoon);
-System.out.println("Schoon bestand aangemaakt");
 			}
 			scanner.close();
 			System.out.println("" + fvan.exists());

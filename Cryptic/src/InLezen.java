@@ -52,7 +52,7 @@ public class InLezen {
 	}
 
 	public void wipe() throws IOException {
-		bw = new BufferedWriter(new FileWriter(output.replace("data", "tempo")));
+		bw = new BufferedWriter(new FileWriter(path + "tempo.txt"));
 		bw.write("");
 		bw.flush();
 		bw.close();
@@ -83,11 +83,11 @@ public class InLezen {
 	}
 
 	public void loop(boolean visualsOn) throws IOException {
-		bw = new BufferedWriter(new FileWriter(output.replace("data", "tempo")));
+		bw = new BufferedWriter(new FileWriter(path + "tempo.txt"));
 		bw.write("");
 		bw.flush();
 		bw.close();
-		bw = new BufferedWriter(new FileWriter(output.replace("data", "tempo"), true));
+		bw = new BufferedWriter(new FileWriter(path + "tempo.txt", true));
 		for (String gek : sTemp) {
 			bw.write(gek + System.getProperty("line.separator"));
 			if (visualsOn) {

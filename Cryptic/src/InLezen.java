@@ -80,10 +80,10 @@ public class InLezen {
 	}
 
 	public void loop(boolean visualsOn) {
-		Writer wr = new Writer(output.replace("data", "tempo"));
+		Writer wr = new Writer(output.replace("data", "tempo"), true);
 		wr.bufferedWriter("");
 		for (String gek : sTemp) {
-			wr.bufferedWriter(gek + System.getProperty("line.separator"), true);
+			wr.bufferedWriter(gek + System.getProperty("line.separator"));
 			if (visualsOn) {
 				System.out.print("\n " + gek);
 			}
@@ -94,7 +94,7 @@ public class InLezen {
 
 	public void textImport() throws IOException {
 		verschoon();
-		Writer wr = new Writer(output);
+		Writer wr = new Writer(output, true);
 
 		Scanner s1 = new Scanner(new FileReader(input));
 		s1.useDelimiter("\\s");
@@ -106,7 +106,7 @@ public class InLezen {
 				result = result.toLowerCase();
 				String temp = result.replaceAll(",[\\+\\.\\^:]\"", "");
 				if (!(woordAanwezig(temp))) {
-					wr.bufferedWriter(temp + "#" + System.getProperty("line.separator"), true);
+					wr.bufferedWriter(temp + "#" + System.getProperty("line.separator"));
 					// System.out.println("APPENDED " + temp + " POSITIE " +
 					// positie);
 				}
@@ -129,12 +129,12 @@ public class InLezen {
 			} else {
 				System.out.println("nee1");
 			}
-			Writer writer = new Writer(fvan);
+			Writer writer = new Writer(fvan, true);
 			Scanner scanner = new Scanner(new FileReader(fnaar));
 			while (scanner.hasNext()) {
 
-				writer.bufferedWriter(cleanString(scanner.next()), true);
-				writer.bufferedWriter(" ", true);
+				writer.bufferedWriter(cleanString(scanner.next()));
+				writer.bufferedWriter(" ");
 
 				writer = new Writer(path + "schoneBestanden.obj");
 				writer.objectOutputStream(bestandSchoon);

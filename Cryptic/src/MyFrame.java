@@ -60,19 +60,11 @@ public class MyFrame extends JFrame implements ActionListener {
 		boolean active = visuals.getText().equals("off-[ON]");
 		boolean isHidden = secretButton.getText().equals("[OFF]-on");
 		if (event.getSource() == bijwerken) {
-			try {
-				iL.setFiles("", output);
-				iL.wipe();
-				for (String s : input) {
-					iL.setFiles(s, output);
-					iL.textImport();
-					iL.loop(visuals.getText().equals("off-[ON]"));
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			iL.bijwerken(input, output, active);
 			if (active) {
 				System.out.println("\nXXXXXXXXXXXXXXXFINISHEDXXXXXXXXXXXXXX");
+			} else {
+				System.out.println("\ndone");
 			}
 		}
 
@@ -88,7 +80,6 @@ public class MyFrame extends JFrame implements ActionListener {
 					System.out.println("\n*They are done talking!*");
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -100,12 +91,11 @@ public class MyFrame extends JFrame implements ActionListener {
 				if (active) {
 					System.out.println("\n*hamsters are running at full speed*");
 				}
-				uS.print(active);
+				uS.coderen(active);
 				if (active) {
 					System.out.println("\n*They are done!*");
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

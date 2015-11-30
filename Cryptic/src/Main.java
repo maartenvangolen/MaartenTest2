@@ -29,7 +29,7 @@ public class Main {
 		}
 
 		for (int i = 1; i < aantalBestanden; i++) {
-			mf.setFiles(path + "boek" + i + ".txt", path + "data.txt");
+			mf.setFiles(path + "boek" + i + ".txt");
 		}
 	}
 }

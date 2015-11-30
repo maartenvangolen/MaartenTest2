@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InLezen {
-	private String temp1 = "", temp = "", input = "", output = "", tempo = "", path = "";
+	private String temp1 = "", temp = "", input = "", tempo = "", path = "";
 	private int tester = 0;
 	private BufferedWriter bw = null;
 	private ArrayList<String> s = new ArrayList<String>();
@@ -33,9 +33,8 @@ public class InLezen {
 		this.path = path;
 	}
 
-	public void setFiles(String inputs, String outputs) {
+	public void setFiles(String inputs) {
 		input = inputs;
-		output = outputs;
 	}
 
 	public boolean woordAanwezig(String s1) throws IOException {
@@ -56,7 +55,7 @@ public class InLezen {
 		bw.write("");
 		bw.flush();
 		bw.close();
-		bw = new BufferedWriter(new FileWriter(output));
+		bw = new BufferedWriter(new FileWriter(path + "data.txt"));
 		bw.write("");
 		bw.flush();
 		bw.close();
@@ -102,12 +101,12 @@ public class InLezen {
 
 	public void textImport() throws IOException {
 		verschoon();
-		bw = new BufferedWriter(new FileWriter(output, true));
+		bw = new BufferedWriter(new FileWriter(path + "data.txt", true));
 		FileReader f1 = new FileReader(input);
 		Scanner s1 = new Scanner(f1);
 		s1.useDelimiter("\\s");
 
-		File fw1 = new File(output);
+		File fw1 = new File(path + "data.txt");
 		FileWriter pw1 = new FileWriter(fw1, true);
 
 		while (s1.hasNext()) {

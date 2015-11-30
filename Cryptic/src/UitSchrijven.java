@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class UitSchrijven {
 
-	private String temp = "", input = "", output = "", key = "amsterdam", path = "";
+	private String temp = "", input = "",  key = "amsterdam", path = "";
 	private ArrayList<String> s = new ArrayList<String>();
 	private ArrayList<String> sTemp = new ArrayList<String>();
 	private ArrayList<String> sCheck = new ArrayList<String>();
@@ -22,9 +22,8 @@ public class UitSchrijven {
 		this.path = path;
 	}
 
-	public void setFiles(String inputs, String outputs) {
+	public void setFiles(String inputs) {
 		input = inputs;
-		output = outputs;
 	}
 
 	public void setArray(String in) {

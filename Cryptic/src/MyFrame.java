@@ -18,7 +18,6 @@ public class MyFrame extends JFrame implements ActionListener {
 	private JTextField tfIn, tfOut;
 	private JLabel visual, secretLabel;
 	private ArrayList<String> input = new ArrayList<String>();
-	private String output = "";
 
 	public MyFrame() {
 		setLayout(new FlowLayout());
@@ -61,10 +60,10 @@ public class MyFrame extends JFrame implements ActionListener {
 		boolean isHidden = secretButton.getText().equals("[OFF]-on");
 		if (event.getSource() == bijwerken) {
 			try {
-				iL.setFiles("", output);
+				iL.setFiles("");
 				iL.wipe();
 				for (String s : input) {
-					iL.setFiles(s, output);
+					iL.setFiles(s);
 					iL.textImport();
 					iL.loop(visuals.getText().equals("off-[ON]"));
 				}
@@ -77,7 +76,7 @@ public class MyFrame extends JFrame implements ActionListener {
 		}
 
 		if (event.getSource() == coderen && !isHidden) {
-			uS.setFiles(tfIn.getText(), output);
+			uS.setFiles(tfIn.getText());
 			try {
 				tfOut.setText("");
 				if (active) {
@@ -94,7 +93,7 @@ public class MyFrame extends JFrame implements ActionListener {
 		}
 
 		if (event.getSource() == coderen && isHidden) {
-			uS.setFiles(tfIn.getText(), output);
+			uS.setFiles(tfIn.getText());
 			try {
 				tfOut.setText("");
 				if (active) {
@@ -144,14 +143,8 @@ public class MyFrame extends JFrame implements ActionListener {
 		uS = ui;
 	}
 
-	public void setFiles(String inputs, String outputs) {
+	public void setFiles(String inputs) {
 		input.add(inputs);
-		output = outputs;
-		tfOut.setText(output);
-	}
-
-	public String getOutput() {
-		return output;
 	}
 
 }

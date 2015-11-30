@@ -1,17 +1,17 @@
 import java.io.File;
 
 public class Main {
-
 	public static void main(String[] arg) throws Exception {
 		String path = System.getProperty("user.home") + "/Desktop/raddestijds/";
 		path = path.replaceAll("\\\\", "/");
-System.out.println("het werkt, bij mij ook!");
+
 		System.out.println("_-_-_-_-_-_-_-_-_-_-STARTED-_-_-_-_-_-_-_-_-_-_-_");
 		MyFrame mf = new MyFrame();
 		InLezen in = new InLezen(path);
 		UitSchrijven us = new UitSchrijven(path);
 		mf.setInLezen(in);
 		mf.setUitSchrijven(us);
+		in.setMyFrame(mf);
 		in.setUitSchrijven(us);
 		us.setMyFrame(mf);
 

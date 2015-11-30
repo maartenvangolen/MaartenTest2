@@ -1,38 +1,36 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InLezen {
-	private String input = "", output = "", path = "";
-	private int wordCounter = 0;
-	private ArrayList<String> aanwezigeWoorden = new ArrayList<String>();
+	private String temp1 = "", temp = "", input = "", output = "", tempo = "", path = "";
+	private int tester = 0;
+	private BufferedWriter bw = null;
+	private ArrayList<String> s = new ArrayList<String>();
 	private ArrayList<String> sTemp = new ArrayList<String>();
 	private ArrayList<String> sCheck = new ArrayList<String>();
 	private ArrayList<String> bestandSchoon = new ArrayList<String>();
 	private UitSchrijven us;
 
-	public InLezen(String path) {
-		Reader r = new Reader(path + "schoneBestanden.obj");
-
-		if (r.exists())
-			bestandSchoon = (ArrayList<String>) r.readObject();
-
-		this.path = path;
-	}
-
-	public void bijwerken(ArrayList<String> input, String output, boolean isVisual) {
-		wipe();
-		for (String s : input) {
-			setFiles(s, output);
-			try {
-				textImport();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			loop(isVisual);
+	@SuppressWarnings("unchecked")
+	public InLezen(String path) throws ClassNotFoundException, IOException {
+		File f = new File(path + "schoneBestanden.obj");
+		if (f.exists()) {
+			FileInputStream fis = new FileInputStream(path + "schoneBestanden.obj");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			bestandSchoon = (ArrayList<String>) ois.readObject();
+			fis.close();
+			ois.close();
 		}
+		this.path = path;
 	}
 
 	public void setFiles(String inputs, String outputs) {
@@ -40,79 +38,96 @@ public class InLezen {
 		output = outputs;
 	}
 
-	public boolean woordAanwezig(String woord) throws IOException {
-
-		if (aanwezigeWoorden.contains(woord)) {
-			// tempo = woord;
-			// tempo vervangen door parameter woord -> aanwezigWoord in
-			// veranderRegel
-			veranderRegel(aanwezigeWoorden.size(), woord);
+	public boolean woordAanwezig(String s1) throws IOException {
+		if (s.contains(s1)) {
+			tempo = s1;
+			veranderRegel();
 			return true;
 		}
 
-		aanwezigeWoorden.add(woord);
-		sTemp.add(woord + " " + wordCounter);
-		sCheck.add(woord);
+		s.add(s1);
+		sTemp.add(s1 + " " + tester);
+		sCheck.add(s1);
 		return false;
 	}
 
-	public void wipe() {
-		Writer wr = new Writer(output.replace("data", "tempo"));
-		wr.bufferedWriter("");
-		wr = new Writer(output);
-		wr.bufferedWriter("");
+	public void wipe() throws IOException {
+		bw = new BufferedWriter(new FileWriter(output.replace("data", "tempo")));
+		bw.write("");
+		bw.flush();
+		bw.close();
+		bw = new BufferedWriter(new FileWriter(output));
+		bw.write("");
+		bw.flush();
+		bw.close();
 	}
 
-	public void veranderRegel(int lengte, String aanwezigWoord) throws IOException {
-		String boekWoord = "";
-		for (int i = 0; i < lengte; i++) {
-			if (sCheck.get(i).equals(aanwezigWoord)) {
-				sCheck.remove(i);
-				sCheck.add(aanwezigWoord);
+	public void veranderRegel() throws IOException {
 
-				boekWoord = sTemp.get(i);
+		int i = 0;
+		String leuk = "";
+
+		for (String gek : s) {
+			if (sCheck.get(i).equals(tempo)) {
+				sCheck.remove(i);
+				sCheck.add(tempo);
+
+				leuk = sTemp.get(i);
 
 				sTemp.remove(i);
-				sTemp.add(boekWoord + " " + wordCounter);
+				sTemp.add(leuk + " " + tester);
 				break;
 			}
+			i++;
 		}
 	}
 
-	public void loop(boolean visualsOn) {
-		Writer wr = new Writer(output.replace("data", "tempo"));
-		wr.bufferedWriter("");
+	public void loop(boolean visualsOn) throws IOException {
+		bw = new BufferedWriter(new FileWriter(output.replace("data", "tempo")));
+		bw.write("");
+		bw.flush();
+		bw.close();
+		bw = new BufferedWriter(new FileWriter(output.replace("data", "tempo"), true));
 		for (String gek : sTemp) {
-			wr.bufferedWriter(gek + System.getProperty("line.separator"), true);
+			bw.write(gek + System.getProperty("line.separator"));
 			if (visualsOn) {
 				System.out.print("\n " + gek);
 			}
+			bw.flush();
 			us.setArray(gek);
 			// mf.setTextField(gek);
 		}
+		bw.close();
 	}
 
 	public void textImport() throws IOException {
 		verschoon();
-		Writer wr = new Writer(output);
-
-		Scanner s1 = new Scanner(new FileReader(input));
+		bw = new BufferedWriter(new FileWriter(output, true));
+		FileReader f1 = new FileReader(input);
+		Scanner s1 = new Scanner(f1);
 		s1.useDelimiter("\\s");
+
+		File fw1 = new File(output);
+		FileWriter pw1 = new FileWriter(fw1, true);
 
 		while (s1.hasNext()) {
 			String result = s1.next();
 			if (!result.isEmpty()) {
-				wordCounter++;
+				tester++;
 				result = result.toLowerCase();
-				String temp = result.replaceAll(",[\\+\\.\\^:]\"", "");
+				temp = result.replaceAll(",[\\+\\.\\^:]\"", "");
 				if (!(woordAanwezig(temp))) {
-					wr.bufferedWriter(temp + "#" + System.getProperty("line.separator"), true);
+					bw.write(temp + "#" + System.getProperty("line.separator"));
+					bw.flush();
 					// System.out.println("APPENDED " + temp + " POSITIE " +
 					// positie);
 				}
 			}
 		}
+		f1.close();
 		s1.close();
+		bw.close();
+		pw1.close();
 	}
 
 	public void verschoon() throws IOException {
@@ -129,32 +144,40 @@ public class InLezen {
 			} else {
 				System.out.println("nee1");
 			}
-			Writer writer = new Writer(fvan);
-			Scanner scanner = new Scanner(new FileReader(fnaar));
-			while (scanner.hasNext()) {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fvan, true));
+			FileReader f1 = new FileReader(fnaar);
+			Scanner s1 = new Scanner(f1);
+			while (s1.hasNext()) {
+				temp1 = s1.next();
+				StringBuilder sb = new StringBuilder(temp1);
+				for (int index = 0; index < sb.length(); index++) {
+					char c = sb.charAt(index);
+					if (Character.isAlphabetic(c) || Character.isDigit(c)) {
+						bw.write(c);
+						bw.flush();
+					}
 
-				writer.bufferedWriter(cleanString(scanner.next()), true);
-				writer.bufferedWriter(" ", true);
+				}
+				bw.write(" ");
+				bw.flush();
+				String s = path + "schoneBestanden.obj";
+				FileOutputStream fos = new FileOutputStream(s);
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-				writer = new Writer(path + "schoneBestanden.obj");
-				writer.objectOutputStream(bestandSchoon);
+				oos.writeObject(bestandSchoon);
+				fos.flush();
+				oos.flush();
+				oos.close();
 
 			}
-			scanner.close();
+			s1.close();
+			f1.close();
+			bw.close();
 			System.out.println("" + fvan.exists());
 		}
 	}
 
-	private String cleanString(String mixedString) {
-		String cleaned = "";
-		StringBuilder sb = new StringBuilder(mixedString);
-		for (int index = 0; index < sb.length(); index++) {
-			char c = sb.charAt(index);
-			if (Character.isAlphabetic(c) || Character.isDigit(c)) {
-				cleaned = cleaned + c;
-			}
-		}
-		return cleaned;
+	public void setMyFrame(MyFrame my) {
 	}
 
 	public void setUitSchrijven(UitSchrijven ui) {

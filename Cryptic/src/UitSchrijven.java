@@ -9,16 +9,12 @@ public class UitSchrijven {
 	private String temp = "", input = "", output = "", key = "amsterdam", path = "";
 	private ArrayList<String> s = new ArrayList<String>();
 	private ArrayList<String> sTemp = new ArrayList<String>();
-	private ArrayList<String> sCheck = new ArrayList<String>();
-	private ArrayList<String> rij1 = new ArrayList<String>();
+	private ArrayList<String> rij1;
 	private ArrayList<String> rij2 = new ArrayList<String>();
 	private MyFrame mf;
 
 	public UitSchrijven(String path) {
-		String[] temp = "! a b c d e f g h i j k l m n o p q r s t u v w x y z".split("\\s+");
-		for (int i = 0; i <= 26; i++) {
-			rij1.add(temp[i]);
-		}
+		rij1 = getAlphabet();
 		this.path = path;
 	}
 
@@ -34,13 +30,22 @@ public class UitSchrijven {
 	private int randomGetal(int i) {
 		return 1 + (int) (i * Math.random());
 	}
+	
+	private ArrayList<String> getAlphabet(){
+		ArrayList<String> rij1 = new ArrayList<String>();
+		String[] temp = "! a b c d e f g h i j k l m n o p q r s t u v w x y z".split("\\s+");
+		for (int i = 0; i <= 26; i++) {
+			rij1.add(temp[i]);
+		}
+		return rij1;
+	}
 
 	@SuppressWarnings("resource")
 	public void coderen(boolean visualsOn) throws IOException {
 		FileReader f1 = new FileReader(output.replaceAll("data", "tempo"));
 		Scanner s1 = new Scanner(input);
 		s1.useDelimiter("\\s");
-		sCheck.clear();
+		ArrayList<String> sCheck = new ArrayList<String>();
 		int i = 0, y = 0;
 		String temps = "", in = "";
 		while (s1.hasNext()) {
@@ -54,22 +59,24 @@ public class UitSchrijven {
 		}
 		s1.close();
 
-		s1 = new Scanner(f1);
-		s1.useDelimiter("\r\n");
-		sTemp.clear();
-		// maakt de sleutel aan per regel
-		// sTemp bestaat uit één woord + heel veel losse getallen:hoi 334 346 12
-		while (s1.hasNext()) {
-
-			temp = s1.next();
-			temps = temp.replaceAll("[0-9]", "").replace(" ", "");
-			s.add(temp);
-			sTemp.add(temps);
-			if (visualsOn) {
-				System.out.println("*you feed your hamsters:" + temps + "*");
-			}
-
-		}
+//		s1 = new Scanner(f1);
+//		s1.useDelimiter("\r\n");
+//		sTemp.clear();
+//		// maakt de sleutel aan per regel
+//		// sTemp bestaat uit één woord + heel veel losse getallen:hoi 334 346 12
+//		while (s1.hasNext()) {
+//
+//			temp = s1.next();
+//			temps = temp.replaceAll("[0-9]", "").replace(" ", "");
+//			s.add(temp);
+//			sTemp.add(temps);
+//			if (visualsOn) {
+//				System.out.println("*you feed your hamsters:" + temps + "*");
+//			}
+//
+//		}
+		
+		createKey(f1 , visualsOn);
 
 		while (sCheck.size() > i) {
 			if (visualsOn) {
@@ -178,7 +185,7 @@ public class UitSchrijven {
 		FileReader f1 = new FileReader(output.replaceAll("data", "tempo"));
 		Scanner s1 = new Scanner(input);
 		s1.useDelimiter("\\s");
-		sCheck.clear();
+		ArrayList<String> sCheck = new ArrayList<String>();
 		int i = 0;
 		String temps = "";
 		while (s1.hasNext()) {
@@ -191,24 +198,27 @@ public class UitSchrijven {
 		}
 		s1.close();
 
-		s1 = new Scanner(f1);
-		s1.useDelimiter("\r\n");
-		sTemp.clear();
-		s.clear();
-		// maakt de sleutel aan per regel
-		// sTemp bestaat uit één woord + heel veel losse getallen:hoi 334 346 12
-		while (s1.hasNext()) {
+//		s1 = new Scanner(f1);
+//		s1.useDelimiter("\r\n");
+//		sTemp.clear();
+//		s.clear();
+//		// maakt de sleutel aan per regel
+//		// sTemp bestaat uit één woord + heel veel losse getallen:hoi 334 346 12
+//		while (s1.hasNext()) {
+//
+//			temp = s1.next();
+//			temps = temp.replaceAll("[0-9]", "").replace(" ", "");
+//			s.add(temp);
+//			sTemp.add(temps);
+//			if (visualsOn) {
+//				System.out.println("*your mice are named: " + temps + "*");
+//			}
+//
+//		}
 
-			temp = s1.next();
-			temps = temp.replaceAll("[0-9]", "").replace(" ", "");
-			s.add(temp);
-			sTemp.add(temps);
-			if (visualsOn) {
-				System.out.println("*your mice are named: " + temps + "*");
-			}
-
-		}
-
+		createKey(f1 , visualsOn);
+		
+		
 		while (sCheck.size() > i) {
 			if (visualsOn) {
 				System.out.println("\n*you repeat the mice: " + sCheck.get(i) + "*");
@@ -344,6 +354,27 @@ public class UitSchrijven {
 
 		f1.close();
 		s1.close();
+	}
+	
+	private void createKey(FileReader f1 , boolean visualsOn){
+		String temps;
+		Scanner s1 = new Scanner(f1);
+		s1.useDelimiter("\r\n");
+		sTemp.clear();
+		s.clear();
+		// maakt de sleutel aan per regel
+		// sTemp bestaat uit één woord + heel veel losse getallen:hoi 334 346 12
+		while (s1.hasNext()) {
+
+			temp = s1.next();
+			temps = temp.replaceAll("[0-9]", "").replace(" ", "");
+			s.add(temp);
+			sTemp.add(temps);
+			if (visualsOn) {
+				System.out.println("*your mice are named: " + temps + "*");
+			}
+
+		}
 	}
 
 	public void setMyFrame(MyFrame my) {

@@ -57,10 +57,10 @@ public class InLezen {
 	}
 
 	public void wipe() {
-		System.out.println("["+output+"]");
-		Writer wr = new Writer(path + "data.txt");
+		System.out.println("["+path + "data.txt"+"]");
+		Writer wr = new Writer(path + "tempo.txt");
 		wr.bufferedWriter("");
-		wr = new Writer(output);
+		wr = new Writer(path + "data.txt");
 		wr.bufferedWriter("");
 	}
 
@@ -95,7 +95,7 @@ public class InLezen {
 
 	public void textImport() throws IOException {
 		verschoon();
-		Writer wr = new Writer(output, true);
+		Writer wr = new Writer(path + "data.txt", true);
 
 		Scanner s1 = new Scanner(new FileReader(input));
 		s1.useDelimiter("\\s");

@@ -30,6 +30,7 @@ public class Writer {
 	}
 
 	public void bufferedWriter(String text) {
+		System.out.println("BufferedWriter for file ["+bestand.getAbsolutePath()+"] with append value:"+append+" the text=["+text+"]");
 		BufferedWriter bw;
 		try {
 			bw = new BufferedWriter(new FileWriter(bestand, append));

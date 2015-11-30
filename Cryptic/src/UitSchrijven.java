@@ -36,7 +36,7 @@ public class UitSchrijven {
 	}
 
 	@SuppressWarnings("resource")
-	public void coderen(boolean visualsOn) throws IOException {
+	public void print(boolean visualsOn) throws IOException {
 		FileReader f1 = new FileReader(output.replaceAll("data", "tempo"));
 		Scanner s1 = new Scanner(input);
 		s1.useDelimiter("\\s");
@@ -310,11 +310,11 @@ public class UitSchrijven {
 					}
 					mf.setTextField(mf.getTextField() + " " + woord);
 					woord = "";
-					// rij2.clear();
-					// br.close();
-					// br = new BufferedReader(new FileReader(
-					// "C:/Users/Maarten/Desktop/raddestijds/key/vic.txt"));
-					// ------------------------------------------------------------------
+// rij2.clear();
+// br.close();
+// br = new BufferedReader(new FileReader(
+// "C:/Users/Maarten/Desktop/raddestijds/key/vic.txt"));
+// ------------------------------------------------------------------
 				}
 			} else {
 

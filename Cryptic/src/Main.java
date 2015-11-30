@@ -1,7 +1,6 @@
 import java.io.File;
 
 public class Main {
-
 	public static void main(String[] arg) throws Exception {
 		String path = System.getProperty("user.home") + "/Desktop/raddestijds/";
 		path = path.replaceAll("\\\\", "/");
@@ -12,6 +11,7 @@ public class Main {
 		UitSchrijven us = new UitSchrijven(path);
 		mf.setInLezen(in);
 		mf.setUitSchrijven(us);
+		in.setMyFrame(mf);
 		in.setUitSchrijven(us);
 		us.setMyFrame(mf);
 
